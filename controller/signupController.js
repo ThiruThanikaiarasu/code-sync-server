@@ -2,15 +2,12 @@ const {v4 : uuidv4} = require('uuid')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
-const users = require('../models/signinModel')
+const users = require('../models/userModel')
 
 const addNewUser = async (request, response) => {
     const {email, password} = request.body
-    console.log(password, email)
     const generatedUserId = uuidv4()
-    console.log(generatedUserId)
     const hashedPassword = await bcrypt.hash(password,10)
-    console.log(hashedPassword)
 
     try{
         const existingUser = await users.findOne({email})
@@ -25,27 +22,24 @@ const addNewUser = async (request, response) => {
             password : hashedPassword
         }
 
-        const addedUser = await newUserData.save()
+        const addedUser = await users.insertMany([newUserData])
 
         const token = jwt.sign(
-                addedUser,
-                email,
+                {addedUser},
+                process.env.JWT_KEY,
                 {expiresIn : 60*24}
             )
-        console.log(token)
 
-        return response.status(201).json({token, user_id})
+        return response.status(201).json({token : token,user_id :  newUserData.user_id})
+        
     }
     catch(error){
         return response.status(500).json({ errorMessage : error.message})
     }
 }
 
-const loginExistingUser = () => {
 
-}
 
 module.exports = {
     addNewUser,
-    loginExistingUser
 }

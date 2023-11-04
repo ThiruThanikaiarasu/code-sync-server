@@ -10,7 +10,7 @@ app.use(express.json())
 const cors = require('cors')
 app.use(cors())
 
-const signinRoute = require('./routes/signinRoute')
+const signupRouter = require('./routes/signinRoute')
 
 mongoose.connect(process.env.DB_URI)
 .then( () => {
@@ -24,7 +24,7 @@ app.get('/api/v1', (request, response)=> {
     response.send('CodeSync')
 })
 
-app.use('/api/v1/', signinRoute)
+app.use('/api/v1/signup', signupRouter)
 
 
 
