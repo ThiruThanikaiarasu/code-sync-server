@@ -2,7 +2,7 @@ const {v4 : uuidv4} = require('uuid')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
-const users = require('../models/userModel')
+const users = require('../models/userModel.js')
 
 const addNewUser = async (request, response) => {
     const {email, password} = request.body

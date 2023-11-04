@@ -10,7 +10,7 @@ app.use(express.json())
 const cors = require('cors')
 app.use(cors())
 
-const signupRouter = require('./routes/signinRoute')
+const signupRouter = require('./routes/signinRoute.js')
 
 mongoose.connect(process.env.DB_URI)
 .then( () => {
