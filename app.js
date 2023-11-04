@@ -20,8 +20,8 @@ mongoose.connect(process.env.DB_URI)
     console.log(error)
 })
 
-app.get('/api/v1', (request, response)=> {
-    response.send('CodeSync')
+app.get('/', (request, response)=> {
+    response.status(200).json({message:'CodeSync'})
 })
 
 app.use('/api/v1/signup', signupRouter)
