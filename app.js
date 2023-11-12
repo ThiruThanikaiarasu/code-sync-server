@@ -6,6 +6,8 @@ const PORT = 3500
 const mongoose = require('mongoose')
 const cors = require('cors')
 const signupRouter = require('./routes/signinRoute.js')
+const expertiseRouter = require('./routes/expertiseRoute.js')
+const loginRouter = require('./routes/loginRoute.js')
 
 app.use(express.json())
 app.use(cors())
@@ -22,6 +24,9 @@ app.get('/', (request, response)=> {
 })
 
 app.use('/api/v1/signup', signupRouter)
+app.use('/api/v1/login', loginRouter)
+app.use('/api/v1/expertise', expertiseRouter)
+
 
 app.listen(PORT, console.log(`Server is running at http://localhost:3500/api/v1`))
 
